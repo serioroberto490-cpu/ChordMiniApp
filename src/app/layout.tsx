@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { DM_Sans, Roboto_Mono, Varela_Round } from 'next/font/google';
+import { headers } from 'next/headers';
+import { fontVariables } from '@/app/chordminiFonts';
 import './globals.css';
 import '../styles/analysis-embedded.css';
 import '../styles/chord-grid.css';
@@ -15,31 +16,6 @@ import CriticalCSS from '@/components/layout/CriticalCSS';
 import CorsErrorSuppression from '@/components/layout/CorsErrorSuppression';
 import DevIndicatorHider from '@/components/layout/DevIndicatorHider';
 import { getFrontendBaseUrl } from '@/config/serverBackend';
-
-// Configure Google Fonts
-const robotoMono = Roboto_Mono({
-  subsets: ['latin'],
-  variable: '--font-roboto-mono',
-  display: 'swap',
-});
-
-// Reference-inspired primary sans (closest supported match to Google Sans)
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  variable: '--font-brand-sans',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
-// Previous chord-label font family used across beat grids, guitar chord labels, and lyrics chords
-const varelaRound = Varela_Round({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-varela-round',
-  display: 'swap',
-});
-
-
 
 // Define metadata for the application
 export const metadata: Metadata = {
@@ -140,13 +116,23 @@ export const metadata: Metadata = {
 };
 
 // Root layout component that wraps all pages
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  if (process.env.CHORDMINI_LOCAL_BASS === '1' && (await headers()).get('x-chordmini-studio-bass') === '1') {
+    return (
+      <html lang="it" className="dark">
+        <body style={{ background: '#0e1825', minHeight: '100vh' }}>
+          <main>{children}</main>
+        </body>
+      </html>
+    );
+  }
+
   return (
-    <html lang="en" className={`${robotoMono.variable} ${dmSans.variable} ${varelaRound.variable}`} suppressHydrationWarning>
+    <html lang="en" className={fontVariables} suppressHydrationWarning>
       <head>
         {/* Blocking script: apply dark class BEFORE first paint to prevent theme flash */}
         <script
@@ -217,6 +203,10 @@ export default function RootLayout({
         <CriticalCSS />
       </head>
       <body className="font-sans min-h-screen flex flex-col" suppressHydrationWarning>
+        {process.env.CHORDMINI_LOCAL_BASS === '1' &&
+          <a href="/basso" className="fixed bottom-3 right-3 z-[80] rounded-md bg-slate-900 px-3 py-2 text-sm text-white shadow-lg">
+            Studio Basso
+          </a>}
         <Providers>
           <ClientErrorBoundary>
             <CriticalPerformanceOptimizer />

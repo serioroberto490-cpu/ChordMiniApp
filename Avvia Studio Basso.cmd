@@ -1,0 +1,8 @@
+@echo off
+setlocal
+cd /d "%~dp0"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0local-bass\start-windows.ps1"
+if errorlevel 1 (
+  pause
+  exit /b 1
+)

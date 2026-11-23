@@ -126,6 +126,7 @@ wheels/
 venv/
 ENV/
 .venv/
+/.venv-bass/
 python_backend/.env
 python_backend/venv/
 python_backend/__pycache__/

@@ -1,0 +1,142 @@
+.shell {
+  --bass-ink: #eef4f8;
+  --bass-muted: #a9b9c9;
+  --bass-border: #34485c;
+  --bass-accent: #77ecce;
+  width: min(1240px, 100%);
+  padding: 36px clamp(14px, 4vw, 48px) 60px;
+  margin: 0 auto;
+  color: var(--bass-ink);
+  font: 15px/1.45 system-ui, sans-serif;
+  color-scheme: dark;
+}
+.header, .scoreHeader, .row, .group, .loop, .sources { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.header, .scoreHeader { justify-content: space-between; margin-bottom: 18px; }
+.eyebrow { letter-spacing: .14em; text-transform: uppercase; color: var(--bass-accent); font-size: .75rem; font-weight: 700; }
+.header h1 { margin: 4px 0; line-height: 1.05; font-size: clamp(2.6rem, 7vw, 4.65rem); font-weight: 750; letter-spacing: -.06em; }
+.header p, .scoreHeader p { color: var(--bass-muted); margin: 2px 0; }
+.badge { background: #203831; color: var(--bass-accent); padding: 7px 11px; border-radius: 2rem; font-size: .8rem; }
+.card { background: #172536; border: 1px solid var(--bass-border); padding: clamp(13px, 2.6vw, 25px); border-radius: 15px; margin-top: 14px; }
+.sources { align-items: flex-start; }
+.source { min-width: min(100%, 245px); flex: 1; display: grid; gap: 6px; }
+.source > label:first-child { font-weight: 650; }
+.shell button, .shell select { background: #203249; color: var(--bass-ink); padding: 6px 10px; border-radius: 7px; border: 1px solid var(--bass-border); }
+.shell select { max-width: 100%; min-width: 0; }
+.shell button { cursor: pointer; }
+.shell button:hover:not(:disabled) { border-color: var(--bass-accent); }
+.shell button:disabled { opacity: .5; cursor: not-allowed; }
+.shell button[aria-pressed='true'], .shell .primary { border-color: var(--bass-accent); background: var(--bass-accent); color: #122822; font-weight: 700; }
+.shell .primary { align-self: center; padding: 10px 15px; }
+.actions { display: grid; gap: 6px; }
+.actions button { width: 100%; }
+.upload { color: var(--bass-muted); font-size: .8rem; }
+.upload input { width: 100%; display: block; margin-top: 4px; }
+.upload input::file-selector-button { color: var(--bass-ink); background: #203249; border: 1px solid var(--bass-border); border-radius: 5px; padding: 2px 8px; margin-right: 8px; cursor: pointer; }
+.hint, .error { margin: 12px 0 0; color: var(--bass-muted); font-size: .86rem; }
+.error { color: #ffabab; }
+.transport audio { display: none; }
+.comparison { margin-top: 14px; border-top: 1px solid var(--bass-border); padding-top: 12px; }
+.comparison span { color: var(--bass-muted); font-size: .8rem; }
+.mixer { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; max-width: 650px; margin: 16px 0 8px; }
+.mixer label { display: grid; grid-template-columns: 1fr auto; align-items: baseline; color: var(--bass-muted); }
+.mixer output { color: var(--bass-accent); font-variant-numeric: tabular-nums; }
+.mixer input { grid-column: 1 / -1; width: 100%; }
+.player { margin-top: 12px; flex-wrap: nowrap; }
+.player input { flex: 1; min-width: 0; }
+.mixer input, .player input, .loop input { accent-color: var(--bass-accent); }
+.time { margin-left: auto; white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--bass-accent); }
+.scoreHeader h2 { font-size: 1.5rem; font-weight: 720; }
+.barScroll { overflow-x: auto; margin-top: 12px; }
+.bars { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+.tabSystem { gap: 0; padding-right: 1px; }
+.bar { min-width: 0; border: 1px solid var(--bass-border); background: #142132; border-radius: 8px; padding: 5px; }
+.activeBar { border-color: var(--bass-accent); background: #1b303a; }
+.tabSystem .bar { border-radius: 0; padding: 5px 0 0; border-width: 1px 0 1px 1px; }
+.tabSystem .bar:last-child { border-right-width: 1px; }
+.tabSystem .bar:first-child { border-radius: 8px 0 0 8px; }
+.tabSystem .bar:last-child { border-radius: 0 8px 8px 0; }
+.tabSystem .activeBar { border-color: var(--bass-border); box-shadow: inset 0 2px var(--bass-accent); }
+.shell .measure { width: 100%; text-align: left; font-weight: 650; display: flex; align-items: center; justify-content: space-between; gap: 2px; font-size: .8rem; }
+.tabSystem .measure { width: calc(100% - 14px); margin: 0 7px; }
+.measure span { color: var(--bass-muted); font-weight: 400; white-space: nowrap; }
+.chords { display: flex; gap: 2px; min-height: 2.1em; align-items: center; margin: 3px 0; }
+.shell .chords button { padding: 1px 3px; min-width: 0; flex: 1; font-size: .8rem; }
+.timelineChords { position: relative; }
+.shell .timelineChords button { position: absolute; transform: translateX(-25%); padding-inline: 4px; }
+.tab { display: block; width: 100%; font: 12px ui-monospace, monospace; color: var(--bass-muted); }
+.string, .barline { stroke: #71879b; vector-effect: non-scaling-stroke; }
+.cursor { stroke: var(--bass-accent); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.tabNote { cursor: pointer; }
+.tabNote text { fill: white; font-weight: 700; }
+.noteBackground { fill: #142132; }
+.activeBar .noteBackground { fill: #1b303a; }
+.rhythm, .tie { color: var(--bass-muted); }
+.rhythm line, .rhythm path, .tie { fill: none; stroke: currentColor; stroke-width: 1.35; vector-effect: non-scaling-stroke; }
+.rhythm ellipse { fill: none; stroke: currentColor; stroke-width: 1.35; vector-effect: non-scaling-stroke; }
+.rhythm rect, .rhythm circle { fill: currentColor; }
+.tabNote:hover .noteBackground, .tabNote:focus .noteBackground, .selectedNote .noteBackground { fill: #237e6d; }
+.targetLegend, .targetNote .rhythm, .targetTie { color: #d9a8ff; }
+.tie { pointer-events: none; }
+.targetNote text { fill: #e9caff; }
+.targetNote .noteBackground { fill: #40255c; stroke: #b786ef; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.targetNote:hover .noteBackground, .targetNote:focus .noteBackground, .targetNote.selectedNote .noteBackground { fill: #553479; stroke: #e9caff; }
+.uncertain text { text-decoration: underline #fbd28d; }
+.staff { margin-top: 12px; border-radius: 8px; overflow: hidden; }
+.staff button { background: #fff; color: #0f172a; }
+.editor { margin-top: 14px; border-top: 1px solid var(--bass-border); padding-top: 12px; }
+.shell .reset { margin-top: 12px; background: transparent; font-size: .82rem; }
+.homeLink { display: inline-block; color: var(--bass-accent); margin: 7px 0 0; text-decoration: underline; font-size: .85rem; }
+.fileAction { position: relative; display: inline-block; background: #203249; color: var(--bass-ink); padding: 6px 10px; border-radius: 7px; border: 1px solid var(--bass-border); }
+.fileAction:focus-within { outline: 2px solid var(--bass-accent); }
+.fileAction:has(input:disabled) { opacity: .5; }
+.fileAction input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.fileAction input:disabled { cursor: not-allowed; }
+.status { color: var(--bass-accent); font-size: .85rem; }
+.tabNote .degree { font-size: 8.5px; font-weight: 650; text-decoration: none; }
+.printDialog { position: fixed; inset: 0; width: min(98vw, 1050px); max-width: none; max-height: 94vh; margin: auto; padding: 0; border: 1px solid #71879b; border-radius: 12px; background: #162536; color: #eef4f8; }
+.printDialog::backdrop { background: #0a1019c9; }
+.printToolbar { position: sticky; z-index: 2; top: 0; padding: 12px 16px; display: grid; gap: 9px; background: #162536; }
+.printToolbar h2 { font-size: 1.15rem; font-weight: 700; margin-right: auto; }
+.printToolbar button, .printToolbar select, .printToolbar input[type='number'] { background: #21354b; color: #fff; border: 1px solid #516780; border-radius: 5px; padding: 4px 7px; }
+.printToolbar input[type='number'] { width: 70px; }
+.printToolbar button:disabled { opacity: .5; cursor: not-allowed; }
+.printToolbar span { font-size: .8rem; color: #b8cddd; }
+.paper { --bass-muted: #303030; color-scheme: light; color: #151515; background: #fff; max-width: 850px; margin: 8px auto 20px; padding: clamp(12px, 3vw, 36px); font: 12px/1.4 system-ui, sans-serif; }
+.paper h1 { font-size: 20px; font-weight: 750; }
+.paper h2 { font-weight: 700; }
+.paper header { margin-bottom: 12px; }
+.paperTab, .paperGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 9px; }
+.paperGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.paperMeasure { min-width: 0; border: 1px solid #999; padding: 3px; break-inside: avoid; }
+.paperMeasure h2 { font-size: 10px; padding: 2px 5px; }
+.paperChords { display: flex; flex-wrap: wrap; justify-content: space-evenly; gap: 3px 5px; padding: 4px; }
+.paperTimedChords { position: relative; height: 15px; font-weight: 650; font-size: 10px; }
+.paperTimedChords span { position: absolute; transform: translateX(-22%); white-space: nowrap; }
+.paper .tab { max-width: 100%; color: #111; }
+.paper .noteBackground { fill: #fff; }
+.paper .targetNote .noteBackground { stroke: #000; stroke-width: 1.4; }
+.paper .tabNote text { fill: #111 !important; }
+.paper .string, .paper .barline { stroke: #242424; }
+.paper .rhythm, .paper .tie { color: #111; }
+.printLegend { margin: 5px 0 12px; }
+.printStaff { break-inside: avoid; margin: 6px 0; }
+.printStaff svg { max-width: 100%; height: auto; }
+.paperSection { margin-top: 15px; }
+.paperSection > h2 { font-size: 15px; break-after: avoid; }
+.paperDiagrams { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; }
+.diagram { padding: 4px; border: 1px solid #aaa; text-align: center; break-inside: avoid; }
+.diagram figcaption { font-weight: 700; }
+.diagram svg { display: block; width: 100%; max-width: 96px; margin: auto; }
+.diagram line, .diagram circle { stroke: currentColor; }
+.diagram text { fill: currentColor; font-size: 11px; }
+.paperLyric { margin-top: 6px; break-inside: avoid; white-space: pre-wrap; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  :global(body):has(.printDialog[open]) :global(#studio-bass-workspace) { display: none !important; }
+  :global(body):has(.printDialog[open]) { background: white !important; color: black !important; }
+  .printDialog[open] { position: static; display: block; overflow: visible; margin: 0; width: 100%; max-height: none; border: 0; background: #fff; }
+  .printDialog::backdrop, .printToolbar { display: none !important; }
+  .paper { max-width: none; width: 100%; margin: 0; padding: 0; }
+}
+@media (max-width: 900px) { .bars { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 500px) { .bars { grid-template-columns: 1fr; } }

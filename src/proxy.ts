@@ -14,9 +14,16 @@ export function proxy(request: NextRequest) {
     });
   }
 
+  if (process.env.CHORDMINI_LOCAL_BASS === '1' && request.nextUrl.pathname === '/basso') {
+    const headers = new Headers(request.headers);
+    headers.set('x-chordmini-studio-bass', '1');
+    return NextResponse.next({ request: { headers } });
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  // Studio Basso validates its own requests and streams audio without proxy buffering.
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|api/local-bass(?:/|$)).*)'],
 };

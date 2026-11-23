@@ -76,6 +76,7 @@ const broadFilesystemTraceRoutes = [
 ];
 
 const nextConfig = {
+  ...(process.env.CHORDMINI_LOCAL_BASS === '1' ? { devIndicators: false } : {}),
   // Enable standalone output for Docker deployments
   // Transpile ES modules that need to be converted to CommonJS
   transpilePackages: [],
@@ -210,6 +211,9 @@ const nextConfig = {
 
   // Webpack configuration
   webpack: (config, { dev, isServer }) => {
+    if (process.env.CHORDMINI_LOCAL_BASS === '1') {
+      config.resolve.alias['@/app/chordminiFonts$'] = require.resolve('./src/app/chordminiFonts.local.ts');
+    }
     // Performance optimizations
     if (!dev && !isServer) {
       // Simplified bundle splitting strategy to reduce fragmentation
